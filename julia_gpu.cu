@@ -9,7 +9,7 @@
 struct cuComplex {
     float   r;
     float   i;
-    cuComplex( float a, float b ) : r(a), i(b)  {}
+    __device__ cuComplex( float a, float b ) : r(a), i(b)  {}
     __device__ float magnitude2( void ) {
         return r * r + i * i;
     }
@@ -63,7 +63,7 @@ int main( void ) {
     CPUBitmap bitmap( DIM, DIM, &data );
     unsigned char    *dev_bitmap;
 
-    cudaMalloc( (void**)&dev_bitmap, bitmap.image_size() ) );
+    cudaMalloc( (void**)&dev_bitmap, bitmap.image_size() );
     data.dev_bitmap = dev_bitmap;
 
     dim3 grid(DIM,DIM);
@@ -71,9 +71,9 @@ int main( void ) {
 
     cudaMemcpy( bitmap.get_ptr(), dev_bitmap,
                               bitmap.image_size(),
-                              cudaMemcpyDeviceToHost ) );
+                              cudaMemcpyDeviceToHost );
                               
-    cudaFree( dev_bitmap ) );
+    cudaFree( dev_bitmap );
                               
     bitmap.display_and_exit();
 }
