@@ -7,7 +7,7 @@
 
 __global__ void add(int *a, int *b, int *c)
 {
-	int tid = blockIdx.x;
+	int tid = threadIdx.x;
 	if (tid < N)
 		c[tid] = a[tid] + b[tid];
 }
@@ -31,7 +31,7 @@ int main()
 	cudaMemcpy(dev_b, b, N * sizeof(int), cudaMemcpyHostToDevice);
 	cudaMemcpy(dev_c, c, N * sizeof(int), cudaMemcpyHostToDevice);
 
-	add<<<N, 1>>>(dev_a, dev_b, dev_c);
+	add<<<1, N>>>(dev_a, dev_b, dev_c);
 
 	cudaMemcpy(c, dev_c, N * sizeof(int), cudaMemcpyDeviceToHost);
 
