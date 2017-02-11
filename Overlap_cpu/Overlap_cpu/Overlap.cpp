@@ -1,7 +1,8 @@
-﻿#include<opencv2\core\core.hpp>
-#include<opencv2\highgui\highgui.hpp>
-#include<opencv2\opencv.hpp>
-#include<stdio.h>
+﻿#include <opencv2\core\core.hpp>
+#include <opencv2\highgui\highgui.hpp>
+#include <opencv2\opencv.hpp>
+#include <stdio.h>
+#include <time.h>
 
 int main()
 {
@@ -19,9 +20,11 @@ int main()
 	int height = imgSrc1->height;
 	int width = imgSrc1->width;
 	int channel = imgSrc1->nChannels;
-
-	/// Overlap 處理
+	
 	uchar *overlap = (uchar*)malloc(width*height*channel*sizeof(uchar));
+
+	clock_t timeStart = clock();
+	/*===========================START===========================*/
 	for (int i = 0; i < height; i++)
 	{
 		for (int j = 0; j < width; j++)
@@ -34,11 +37,20 @@ int main()
 			}
 		}
 	}
+	/*============================END============================*/
+	clock_t timeEnd = clock();
+	
+	/// 計算、輸出時間
+	float milliseconds = timeEnd - timeStart;
+	printf("CPU Processing time: %f (ms) \n", milliseconds);
+
 	memcpy(ptrDst, overlap, width*height*channel*sizeof(uchar));
 
 	/// Show image
+	cvNamedWindow("", CV_WINDOW_NORMAL);
 	cvShowImage("", imgDst);
 	cvWaitKey(0);
 	cvReleaseImage(&imgDst);
+
 	return 0;
 }
