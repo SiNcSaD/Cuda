@@ -28,7 +28,7 @@ int main()
 		{
 			for (int k = 0; k < channel; k++)
 			{
-				int offset = i*width + j*channel + k;
+				int offset = i*width*channel + j*channel + k;
 				overlap[offset] = 0.5*(ptrSrc1[offset] + ptrSrc2[offset]);
 			}
 		}
