@@ -1,26 +1,26 @@
-#include<opencv2\core\core.hpp>
+ï»¿#include<opencv2\core\core.hpp>
 #include<opencv2\highgui\highgui.hpp>
 #include<opencv2\opencv.hpp>
 #include<stdio.h>
 
 int main()
 {
-	/// «Ø¥ßIPL
+	/// å»ºç«‹IPL
 	IplImage *imgSrc1 = cvLoadImage("C:\\Users\\user\\Desktop\\overlap01.jpg");
 	IplImage *imgSrc2 = cvLoadImage("C:\\Users\\user\\Desktop\\overlap02.jpg");
 	IplImage *imgDst = cvCreateImage(cvGetSize(imgSrc1), IPL_DEPTH_8U, 3);
 
-	/// IPL«ü¼Ğ
+	/// IPLæŒ‡æ¨™
 	uchar *ptrSrc1 = (uchar*)imgSrc1->imageData;
 	uchar *ptrSrc2 = (uchar*)imgSrc2->imageData;
 	uchar *ptrDst = (uchar*)imgDst->imageData;
 
-	/// IPL¤Ø¤o
+	/// IPLå°ºå¯¸
 	int height = imgSrc1->height;
 	int width = imgSrc1->width;
 	int channel = imgSrc1->nChannels;
 
-	/// Overlap ³B²z
+	/// Overlap è™•ç†
 	uchar *overlap = (uchar*)malloc(width*height*channel*sizeof(uchar));
 	for (int i = 0; i < height; i++)
 	{
@@ -28,6 +28,7 @@ int main()
 		{
 			for (int k = 0; k < channel; k++)
 			{
+				/// æ³¨æ„iè¦å¤šä¹˜channel
 				int offset = i*width*channel + j*channel + k;
 				overlap[offset] = 0.5*(ptrSrc1[offset] + ptrSrc2[offset]);
 			}
