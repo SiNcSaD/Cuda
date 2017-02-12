@@ -7,8 +7,8 @@
 int main()
 {
 	/// 建立IPL
-	IplImage *imgSrc1 = cvLoadImage("C:\\Users\\user\\Desktop\\overlap01.jpg");
-	IplImage *imgSrc2 = cvLoadImage("C:\\Users\\user\\Desktop\\overlap02.jpg");
+	IplImage *imgSrc1 = cvLoadImage("C:\\Users\\user\\Desktop\\overlap03.jpg");
+	IplImage *imgSrc2 = cvLoadImage("C:\\Users\\user\\Desktop\\overlap04.jpg");
 	IplImage *imgDst = cvCreateImage(cvGetSize(imgSrc1), IPL_DEPTH_8U, 3);
 
 	/// IPL指標
@@ -51,6 +51,5 @@ int main()
 	cvShowImage("", imgDst);
 	cvWaitKey(0);
 	cvReleaseImage(&imgDst);
-
 	return 0;
 }
